@@ -9,7 +9,5 @@ export const MenuContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: blue;
-  @media screen and (max-width: 768px) {
-              justify-content: center;
-  }
+
 `;
