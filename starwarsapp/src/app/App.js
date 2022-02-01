@@ -13,14 +13,14 @@ function App() {
   const [starships, setStarships] = useState([]);
 
   useEffect(()=> {
-    
+
   }, []);
   return (
     <>
       <Router>
         <MenuComponent />
         <Routes>
-          <Route></Route>
+          <Route exact></Route>
         </Routes>
       </Router>
     </>
