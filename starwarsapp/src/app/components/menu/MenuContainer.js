@@ -8,6 +8,6 @@ export const MenuContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: blue;
+  /* background-color: blue; */
 
 `;

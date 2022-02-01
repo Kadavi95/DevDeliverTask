@@ -4,7 +4,6 @@ import { MenuContainer } from "./MenuContainer";
 import { MenuButttonsNormal } from "./MenuButtonsNormal";
 import { FakeDiv } from "./FakeDiv";
 import { MenuMobileSwitch } from "./MenuMobileSwitch";
-import styled from "styled-components";
 import { MenuButtonsMobile } from "./MenuButtonsMobile";
 
 export function MenuComponent() {
@@ -23,7 +22,10 @@ export function MenuComponent() {
           isHidden={isHidden}
           changeStateOfMobileMenu={changeStateOfMobileMenu}
         />
-        <MenuButtonsMobile isHidden={isHidden}/>
+        <MenuButtonsMobile
+          isHidden={isHidden}
+          changeStateOfMobileMenu={changeStateOfMobileMenu}
+        />
       </MenuContainer>
     </>
   );
