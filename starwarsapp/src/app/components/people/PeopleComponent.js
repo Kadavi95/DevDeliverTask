@@ -1,30 +1,100 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PeopleContainer } from "./PeopleContainer";
+import { InputContainer } from "../commonElements/InputContainer";
+import { InputBrowser } from "../commonElements/InputBrowser";
+import { SelectStyled } from "../commonElements/SelectStyled";
+import { OptionStyled } from "../commonElements/OptionStyled";
+import { PeopleOptionsData } from "./PeopleOptionsData";
 
 export function PeopleComponent(props) {
   const [peopleSorted, setPeopleSorted] = useState([]);
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState("male");
+  const [name, setName] = useState("");
+
   const { people } = props;
-  console.log(props);
-  const PeopleArray = { ...people };
+  const PeopleResults = people.results;
+  console.log(PeopleResults);
 
-  console.log(PeopleArray);
-  const sortPeopleByGender = (value) => {
-    setGenre(value);
-  };
+  useEffect(() => {
+    if (PeopleResults === undefined) {
+      console.log("Undefined");
+    } else {
+      const InitialSorted = PeopleResults.filter(
+        (item) => item.gender === genre
+      );
+      console.log(InitialSorted);
+      setPeopleSorted(InitialSorted);
+    }
+  }, [PeopleResults]);
 
+  useEffect(() => {
+    if (PeopleResults === undefined) {
+      console.log("Undefined");
+    } else {
+      const InitialSorted = PeopleResults.filter(
+        (item) => item.gender === genre
+      );
+      console.log(InitialSorted);
+      setPeopleSorted(InitialSorted);
+    }
+  }, [genre]);
+  useEffect(() => {
+    if (PeopleResults === undefined) {
+      console.log("Undefined");
+    } else {
+      const InitialSorted = PeopleResults.filter(
+        (item) => item.gender === genre
+      );
+      const SecondarySorted = InitialSorted.filter((item) =>
+        item.name.toUpperCase().includes(name.toUpperCase())
+      );
+      console.log(InitialSorted);
+      console.log(SecondarySorted);
+      setPeopleSorted(SecondarySorted);
+    }
+  }, [name, genre]);
+
+  const singleContainer = peopleSorted.map((item) => {
+    return (
+      <div key={item.name}>
+        <p>{item.name}</p>
+      </div>
+    );
+  });
+  const SingleOption = PeopleOptionsData.map(({ id, value, text }) => {
+    return (
+      <OptionStyled key={id} value={value}>
+        {text}
+      </OptionStyled>
+    );
+  });
+  console.log(name);
   return (
     <>
       <PeopleContainer>
-        <select
-          value={genre}
-          onChange={(event) => sortPeopleByGender(event.target.value)}
-        >
-          <option value="male">Mężczyźni</option>
-          <option value="female">Kobiety</option>
-          <option value="n/a">Nieoznaczone</option>
-          <option value="">Wszyscy</option>
-        </select>
+        <InputContainer>
+          <InputBrowser
+            type="text"
+            value={name}
+            placeholder="Wpisz imię bohatera"
+            onChange={(event) => setName(event.target.value)}
+          />
+        </InputContainer>
+        <InputContainer>
+          <SelectStyled
+            value={genre}
+            onChange={(event) => {
+              setGenre(event.target.value);
+            }}
+          >
+            {/* <OptionStyled value="male">Mężczyźni</OptionStyled>
+            <OptionStyled value="female">Kobiety</OptionStyled>
+            <OptionStyled value="n/a">Nieoznaczone</OptionStyled> */}
+            {SingleOption}
+          </SelectStyled>
+        </InputContainer>
+
+        {singleContainer}
       </PeopleContainer>
     </>
   );
