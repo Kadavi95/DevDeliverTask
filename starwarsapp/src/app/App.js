@@ -31,7 +31,9 @@ function App() {
           PeopleToState.push(...results);
         });
 
-        console.log(PeopleToState);
+        if(PeopleToState.length !== 0) {
+          setPeople(PeopleToState)
+        }
       } catch {
         console.log("failed people");
       }
