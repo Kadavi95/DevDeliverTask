@@ -7,6 +7,7 @@ const NavMobile = styled.nav`
   width: 100vw;
   height: calc(100vh - 15rem);
   /* background-color: red; */
+  background-color: black;
   display: none;
   position: fixed;
   top: 15rem;

@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { PeopleContainer } from "./PeopleContainer";
+import { MainContainer } from "../commonElements/MainContainer";
 import { InputContainer } from "../commonElements/InputContainer";
 import { InputBrowser } from "../commonElements/InputBrowser";
 import { SelectStyled } from "../commonElements/SelectStyled";
 import { OptionStyled } from "../commonElements/OptionStyled";
 import { PeopleOptionsData } from "./PeopleOptionsData";
+import { CardStyled } from "../commonElements/CardStyled";
+import { CardInfo } from "../commonElements/CardInfo";
+import { CardButton } from "../commonElements/CardButton";
+import { GridContainer } from "../commonElements/GridContainer";
+import { Modal } from "../commonElements/Modal";
 
 export function PeopleComponent(props) {
   const [peopleSorted, setPeopleSorted] = useState([]);
   const [genre, setGenre] = useState("male");
   const [name, setName] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { people } = props;
   const PeopleResults = people.results;
   console.log(PeopleResults);
+
+  const showModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   useEffect(() => {
     if (PeopleResults === undefined) {
@@ -54,11 +64,13 @@ export function PeopleComponent(props) {
     }
   }, [name, genre]);
 
-  const singleContainer = peopleSorted.map((item) => {
+  const singleCard = peopleSorted.map((item) => {
     return (
-      <div key={item.name}>
-        <p>{item.name}</p>
-      </div>
+      <CardStyled key={item.name}>
+        <CardInfo>{item.name}</CardInfo>
+        <CardButton onClick={() => showModal()}>Dowiedz się więcej</CardButton>
+        <Modal isModalOpen={isModalOpen} showModal={showModal} item={item} />
+      </CardStyled>
     );
   });
   const SingleOption = PeopleOptionsData.map(({ id, value, text }) => {
@@ -71,7 +83,7 @@ export function PeopleComponent(props) {
   console.log(name);
   return (
     <>
-      <PeopleContainer>
+      <MainContainer>
         <InputContainer>
           <InputBrowser
             type="text"
@@ -94,8 +106,8 @@ export function PeopleComponent(props) {
           </SelectStyled>
         </InputContainer>
 
-        {singleContainer}
-      </PeopleContainer>
+        <GridContainer> {singleCard}</GridContainer>
+      </MainContainer>
     </>
   );
 }
