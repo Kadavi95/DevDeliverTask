@@ -5,14 +5,12 @@ export function PeopleComponent(props) {
   const [peopleSorted, setPeopleSorted] = useState([]);
   const [genre, setGenre] = useState("");
   const { people } = props;
-  const PeopleArray = {...people}
+  console.log(props);
+  const PeopleArray = { ...people };
 
-  console.log(people);
+  console.log(PeopleArray);
   const sortPeopleByGender = (value) => {
     setGenre(value);
-    
-
-    
   };
 
   return (

@@ -26,10 +26,13 @@ function App() {
           const data = await response.json();
           PeopleDataSummarised.push(data);
         }
+        console.log(PeopleDataSummarised);
         const PeopleToState = [];
+        console.log(PeopleDataSummarised);
         PeopleDataSummarised.forEach(({ results }) => {
           PeopleToState.push(...results);
         });
+        console.log(people);
 
         if(PeopleToState.length !== 0) {
           setPeople(PeopleToState)
@@ -100,6 +103,7 @@ function App() {
     fetchVehicles();
     fetchStarships();
   }, []);
+
   return (
     <>
       <Router>
