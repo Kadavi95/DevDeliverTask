@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MenuComponent } from "./components/menu/MenuComponent";
 
 import { PeopleComponent } from "./components/people/PeopleComponent";
-
+import { PlanetsComponent } from "./components/planets/PlanetsComponent";
+import { FilmsComponent } from "./components/films/FilmsComponent";
+import { SpeciesComponent } from "./components/species/SpeciesComponent";
 function App() {
   const [people, setPeople] = useState([]);
   const [planets, setPlanets] = useState([]);
@@ -47,39 +49,39 @@ function App() {
         console.log("failed people");
       }
     }
-    // async function fetchPlanets() {
-    //   try {
-    //     const response = await fetch(
-    //       "https://swapi.dev/api/planets/?format=json"
-    //     );
-    //     const data = await response.json();
-    //     setPlanets(data);
-    //   } catch {
-    //     console.log("failed planets");
-    //   }
-    // }
-    // async function fetchFilms() {
-    //   try {
-    //     const response = await fetch(
-    //       "https://swapi.dev/api/films/?format=json"
-    //     );
-    //     const data = await response.json();
-    //     setFilms(data);
-    //   } catch {
-    //     console.log("failed films");
-    //   }
-    // }
-    // async function fetchSpecies() {
-    //   try {
-    //     const response = await fetch(
-    //       "https://swapi.dev/api/species/?format=json"
-    //     );
-    //     const data = await response.json();
-    //     setSpecies(data);
-    //   } catch {
-    //     console.log("failed species");
-    //   }
-    // }
+    async function fetchPlanets() {
+      try {
+        const response = await fetch(
+          "https://swapi.dev/api/planets/?format=json"
+        );
+        const data = await response.json();
+        setPlanets(data);
+      } catch {
+        console.log("failed planets");
+      }
+    }
+    async function fetchFilms() {
+      try {
+        const response = await fetch(
+          "https://swapi.dev/api/films/?format=json"
+        );
+        const data = await response.json();
+        setFilms(data);
+      } catch {
+        console.log("failed films");
+      }
+    }
+    async function fetchSpecies() {
+      try {
+        const response = await fetch(
+          "https://swapi.dev/api/species/?format=json"
+        );
+        const data = await response.json();
+        setSpecies(data);
+      } catch {
+        console.log("failed species");
+      }
+    }
     // async function fetchVehicles() {
     //   try {
     //     const response = await fetch(
@@ -103,14 +105,14 @@ function App() {
     //   }
     // }
     fetchPeople();
-    // fetchPlanets();
-    // fetchFilms();
-    // fetchSpecies();
+    fetchPlanets();
+    fetchFilms();
+    fetchSpecies();
     // fetchVehicles();
     // fetchStarships();
   }, []);
 
-  console.log(people);
+  console.log(species);
   return (
     <>
       <Router>
@@ -120,6 +122,21 @@ function App() {
             exact
             path="/"
             element={<PeopleComponent people={people} />}
+          ></Route>
+          <Route
+            exact
+            path="/planets"
+            element={<PlanetsComponent planets={planets} />}
+          ></Route>
+          <Route
+            exact
+            path="/films"
+            element={<FilmsComponent films={films} />}
+          ></Route>
+          <Route
+            exact
+            path="/species"
+            element={<SpeciesComponent species={species} />}
           ></Route>
         </Routes>
       </Router>

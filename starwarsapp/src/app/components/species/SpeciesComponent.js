@@ -4,93 +4,81 @@ import { InputContainer } from "../commonElements/InputContainer";
 import { InputBrowser } from "../commonElements/InputBrowser";
 import { SelectStyled } from "../commonElements/SelectStyled";
 import { OptionStyled } from "../commonElements/OptionStyled";
-import { PeopleOptionsData } from "./PeopleOptionsData";
+import { SpeciesOptionsData } from "./SpeciesOptionsData";
 import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import { PeopleModal } from "../commonElements/SectionsModals/PeopleModal";
+import { SpeciesModal } from "../commonElements/SectionsModals/SpeciesModal";
 
-export function PeopleComponent(props) {
-  const [peopleSorted, setPeopleSorted] = useState([]);
-  const [genre, setGenre] = useState("male");
+export function SpeciesComponent(props) {
+  const [speciesSorted, setSpeciesSorted] = useState([]);
+  const [classification, setClassification] = useState("mammal");
   const [name, setName] = useState("");
   const [openedModal, setOpenedModal] = useState("");
+  const { species } = props;
+  const SpeciesResult = species.results;
 
-  const { people } = props;
-  const PeopleResults = people.results;
-
+  console.log(SpeciesResult);
   const showModal = (valueOfOpenedModal) => {
-
     setOpenedModal(valueOfOpenedModal);
   };
 
   useEffect(() => {
-    if (PeopleResults === undefined) {
+    if (SpeciesResult === undefined) {
       console.log("Undefined");
     } else {
-      const InitialSorted = PeopleResults.filter(
-        (item) => item.gender === genre
+      const InitialSorted = SpeciesResult.filter(
+        (item) => item.classification === classification
       );
-      setPeopleSorted(InitialSorted);
+      console.log(InitialSorted);
+      setSpeciesSorted(InitialSorted);
     }
-  }, [PeopleResults]);
+  }, [SpeciesResult]);
 
   useEffect(() => {
-    if (PeopleResults === undefined) {
+    if (SpeciesResult === undefined) {
       console.log("Undefined");
     } else {
-      const InitialSorted = PeopleResults.filter(
-        (item) => item.gender === genre
+      const InitialSorted = SpeciesResult.filter(
+        (item) => item.classification === classification
       );
-      setPeopleSorted(InitialSorted);
+      console.log("Tablica obiiektów spełniających warunek", InitialSorted);
+      setSpeciesSorted(InitialSorted);
     }
-  }, [genre]);
+  }, [classification]);
   useEffect(() => {
-    if (PeopleResults === undefined) {
+    if (SpeciesResult === undefined) {
       console.log("Undefined");
     } else {
-      const InitialSorted = PeopleResults.filter(
-        (item) => item.gender === genre
+      const InitialSorted = SpeciesResult.filter(
+        (item) => item.classification === classification
       );
       const SecondarySorted = InitialSorted.filter((item) =>
         item.name.toUpperCase().includes(name.toUpperCase())
       );
-      setPeopleSorted(SecondarySorted);
+      console.log(InitialSorted);
+      console.log(SecondarySorted);
+      setSpeciesSorted(SecondarySorted);
     }
-  }, [name, genre]);
+  }, [name, classification]);
 
-  const singleCard = peopleSorted.map((item) => {
-//     const ArrayOfFilms = item.films;
-//     const ArrayOfObjectsFilms = [];
-//     async function CreateObjectOfFilms() {
-//       if (ArrayOfFilms.length !== ArrayOfObjectsFilms.length) {
-//         for (let i = 0; i <= ArrayOfFilms.length; i++) {
-//           let singleFilm = ArrayOfFilms[i];
-//           const res = await fetch(singleFilm);
-//           const data = res.json();
-//           ArrayOfObjectsFilms.push(data);
-//         }
-//       } else {
-//         console.log("The end");
-//       }
-//     }
-
+  const singleCard = speciesSorted.map((item) => {
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
         <CardButton onClick={() => showModal(item.name)}>
           Dowiedz się więcej
         </CardButton>
-        <PeopleModal
+        <SpeciesModal
           isModalOpen={item.name === openedModal ? true : false}
           showModal={showModal}
           item={item}
-        ></PeopleModal>
+        ></SpeciesModal>
       </CardStyled>
     );
   });
-  const SingleOption = PeopleOptionsData.map(({ id, value, text }) => {
+  const SingleOption = SpeciesOptionsData.map(({ id, value, text }) => {
     return (
       <OptionStyled key={id} value={value}>
         {text}
@@ -104,20 +92,17 @@ export function PeopleComponent(props) {
           <InputBrowser
             type="text"
             value={name}
-            placeholder="Wpisz imię bohatera"
+            placeholder="Wpisz nazwę gatunku"
             onChange={(event) => setName(event.target.value)}
           />
         </InputContainer>
         <InputContainer>
           <SelectStyled
-            value={genre}
+            value={classification}
             onChange={(event) => {
-              setGenre(event.target.value);
+              setClassification(event.target.value);
             }}
           >
-            {/* <OptionStyled value="male">Mężczyźni</OptionStyled>
-            <OptionStyled value="female">Kobiety</OptionStyled>
-            <OptionStyled value="n/a">Nieoznaczone</OptionStyled> */}
             {SingleOption}
           </SelectStyled>
         </InputContainer>

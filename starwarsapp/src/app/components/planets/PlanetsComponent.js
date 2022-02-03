@@ -4,93 +4,81 @@ import { InputContainer } from "../commonElements/InputContainer";
 import { InputBrowser } from "../commonElements/InputBrowser";
 import { SelectStyled } from "../commonElements/SelectStyled";
 import { OptionStyled } from "../commonElements/OptionStyled";
-import { PeopleOptionsData } from "./PeopleOptionsData";
+import { PlanetsOptionsData } from "./PlanetsOptionsData";
 import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import { PeopleModal } from "../commonElements/SectionsModals/PeopleModal";
+import { PlanetsModal } from "../commonElements/SectionsModals/PlanetsModal";
 
-export function PeopleComponent(props) {
-  const [peopleSorted, setPeopleSorted] = useState([]);
-  const [genre, setGenre] = useState("male");
+export function PlanetsComponent(props) {
+  const [planetsSorted, setPlanetsSorted] = useState([]);
+  const [rotation, setRotation] = useState("15");
   const [name, setName] = useState("");
   const [openedModal, setOpenedModal] = useState("");
-
-  const { people } = props;
-  const PeopleResults = people.results;
+  const { planets } = props;
+  const PlanetsResult = planets.results;
 
   const showModal = (valueOfOpenedModal) => {
-
+    console.log(valueOfOpenedModal, "valueOfOpenedModal");
     setOpenedModal(valueOfOpenedModal);
   };
 
   useEffect(() => {
-    if (PeopleResults === undefined) {
+    if (PlanetsResult === undefined) {
       console.log("Undefined");
     } else {
-      const InitialSorted = PeopleResults.filter(
-        (item) => item.gender === genre
+      const InitialSorted = PlanetsResult.filter(
+        (item) => item.rotation_period < rotation
       );
-      setPeopleSorted(InitialSorted);
+      console.log(InitialSorted);
+      setPlanetsSorted(InitialSorted);
     }
-  }, [PeopleResults]);
+  }, [PlanetsResult]);
 
   useEffect(() => {
-    if (PeopleResults === undefined) {
+    if (PlanetsResult === undefined) {
       console.log("Undefined");
     } else {
-      const InitialSorted = PeopleResults.filter(
-        (item) => item.gender === genre
+      const InitialSorted = PlanetsResult.filter(
+        (item) => item.rotation_period < rotation
       );
-      setPeopleSorted(InitialSorted);
+      console.log("Tablica obiiektów spełniających warunek", InitialSorted);
+      setPlanetsSorted(InitialSorted);
     }
-  }, [genre]);
+  }, [rotation]);
   useEffect(() => {
-    if (PeopleResults === undefined) {
+    if (PlanetsResult === undefined) {
       console.log("Undefined");
     } else {
-      const InitialSorted = PeopleResults.filter(
-        (item) => item.gender === genre
+      const InitialSorted = PlanetsResult.filter(
+        (item) => item.rotation_period < rotation
       );
       const SecondarySorted = InitialSorted.filter((item) =>
         item.name.toUpperCase().includes(name.toUpperCase())
       );
-      setPeopleSorted(SecondarySorted);
+      console.log(InitialSorted);
+      console.log(SecondarySorted);
+      setPlanetsSorted(SecondarySorted);
     }
-  }, [name, genre]);
+  }, [name, rotation]);
 
-  const singleCard = peopleSorted.map((item) => {
-//     const ArrayOfFilms = item.films;
-//     const ArrayOfObjectsFilms = [];
-//     async function CreateObjectOfFilms() {
-//       if (ArrayOfFilms.length !== ArrayOfObjectsFilms.length) {
-//         for (let i = 0; i <= ArrayOfFilms.length; i++) {
-//           let singleFilm = ArrayOfFilms[i];
-//           const res = await fetch(singleFilm);
-//           const data = res.json();
-//           ArrayOfObjectsFilms.push(data);
-//         }
-//       } else {
-//         console.log("The end");
-//       }
-//     }
-
+  const singleCard = planetsSorted.map((item) => {
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
         <CardButton onClick={() => showModal(item.name)}>
           Dowiedz się więcej
         </CardButton>
-        <PeopleModal
+        <PlanetsModal
           isModalOpen={item.name === openedModal ? true : false}
           showModal={showModal}
           item={item}
-        ></PeopleModal>
+        ></PlanetsModal>
       </CardStyled>
     );
   });
-  const SingleOption = PeopleOptionsData.map(({ id, value, text }) => {
+  const SingleOption = PlanetsOptionsData.map(({ id, value, text }) => {
     return (
       <OptionStyled key={id} value={value}>
         {text}
@@ -104,20 +92,17 @@ export function PeopleComponent(props) {
           <InputBrowser
             type="text"
             value={name}
-            placeholder="Wpisz imię bohatera"
+            placeholder="Wpisz nazwę planety"
             onChange={(event) => setName(event.target.value)}
           />
         </InputContainer>
         <InputContainer>
           <SelectStyled
-            value={genre}
+            value={rotation}
             onChange={(event) => {
-              setGenre(event.target.value);
+              setRotation(event.target.value);
             }}
           >
-            {/* <OptionStyled value="male">Mężczyźni</OptionStyled>
-            <OptionStyled value="female">Kobiety</OptionStyled>
-            <OptionStyled value="n/a">Nieoznaczone</OptionStyled> */}
             {SingleOption}
           </SelectStyled>
         </InputContainer>
