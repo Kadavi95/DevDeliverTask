@@ -9,20 +9,23 @@ import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import { Modal } from "../commonElements/Modal";
+import { PeopleModal } from "../commonElements/SectionsModals/PeopleModal";
 
 export function PeopleComponent(props) {
   const [peopleSorted, setPeopleSorted] = useState([]);
   const [genre, setGenre] = useState("male");
   const [name, setName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openedModal, setOpenedModal] = useState("");
 
   const { people } = props;
   const PeopleResults = people.results;
   console.log(PeopleResults);
 
-  const showModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const showModal = (valueOfOpenedModal) => {
+    //     setIsModalOpen(!isModalOpen);
+    console.log(valueOfOpenedModal, "valueOfOpenedModal");
+    setOpenedModal(valueOfOpenedModal);
   };
 
   useEffect(() => {
@@ -65,11 +68,34 @@ export function PeopleComponent(props) {
   }, [name, genre]);
 
   const singleCard = peopleSorted.map((item) => {
+//     const ArrayOfFilms = item.films;
+//     const ArrayOfObjectsFilms = [];
+//     async function CreateObjectOfFilms() {
+//       if (ArrayOfFilms.length !== ArrayOfObjectsFilms.length) {
+//         for (let i = 0; i <= ArrayOfFilms.length; i++) {
+//           let singleFilm = ArrayOfFilms[i];
+//           const res = await fetch(singleFilm);
+//           const data = res.json();
+//           ArrayOfObjectsFilms.push(data);
+//         }
+//       } else {
+//         console.log("The end");
+//       }
+//     }
+
+    CreateObjectOfFilms();
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
-        <CardButton onClick={() => showModal()}>Dowiedz się więcej</CardButton>
-        <Modal isModalOpen={isModalOpen} showModal={showModal} item={item} />
+        <CardButton onClick={() => showModal(item.name)}>
+          Dowiedz się więcej
+        </CardButton>
+        <PeopleModal
+          isModalOpen={item.name === openedModal ? true : false}
+          showModal={showModal}
+          item={item}
+          filmsObjects={ArrayOfObjectsFilms}
+        ></PeopleModal>
       </CardStyled>
     );
   });

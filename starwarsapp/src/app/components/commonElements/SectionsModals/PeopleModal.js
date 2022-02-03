@@ -1,11 +1,16 @@
+import { ModalBackground } from "../ModalBackground";
+import { PeopleModalInfo } from "./PeopleModalInfo";
 import React from "react";
-import styled from "styled-components";
 
-export function PeopleModal() {
-  return (
-    <>
-      <p>Hello</p>
-      <p>It's a fucking modal</p>
-    </>
-  );
+
+export function PeopleModal({ isModalOpen, showModal, item }) {
+  if (!isModalOpen) {
+    return null;
+  } else {
+    return(
+      <ModalBackground onClick={() => showModal() }>
+        <PeopleModalInfo item={item}/>
+      </ModalBackground>
+    )
+  }
 }
