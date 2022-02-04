@@ -2,15 +2,20 @@ import React, { useState, useEffect } from "react";
 import "../styles/reset.css";
 import "../styles/globalStyles.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { MenuComponent } from "./components/menu/MenuComponent";
 
+import { LoginComponent } from "./components/LogAccess/LoginComponent";
+
+import { MenuComponent } from "./components/menu/MenuComponent";
 import { PeopleComponent } from "./components/people/PeopleComponent";
 import { PlanetsComponent } from "./components/planets/PlanetsComponent";
 import { FilmsComponent } from "./components/films/FilmsComponent";
 import { SpeciesComponent } from "./components/species/SpeciesComponent";
 import { VehiclesComponent } from "./components/vehicles/VehiclesComponent";
 import { StarshipsComponent } from "./components/starships/StarshipsComponent";
+import PlanetsExample from "./components/PlanetsExample/PlanetsExample";
+
 function App() {
+  const [checkedData, setCheckedData] = useState(false);
   const [people, setPeople] = useState([]);
   const [planets, setPlanets] = useState([]);
   const [films, setFilms] = useState([]);
@@ -51,17 +56,7 @@ function App() {
         console.log("failed people");
       }
     }
-    async function fetchPlanets() {
-      try {
-        const response = await fetch(
-          "https://swapi.dev/api/planets/?format=json"
-        );
-        const data = await response.json();
-        setPlanets(data);
-      } catch {
-        console.log("failed planets");
-      }
-    }
+
     async function fetchFilms() {
       try {
         const response = await fetch(
@@ -107,24 +102,26 @@ function App() {
       }
     }
     fetchPeople();
-    fetchPlanets();
+    // fetchPlanets();
     fetchFilms();
     fetchSpecies();
     fetchVehicles();
     fetchStarships();
-  }, []);
+  }, [checkedData]);
 
   console.log(species);
   return (
     <>
+      <LoginComponent setCheckedData={setCheckedData}></LoginComponent>
       <Router>
         <MenuComponent />
         <Routes>
-          <Route
+          <Route exact path="/" element={<PlanetsExample />}></Route>
+          {/* <Route
             exact
             path="/"
             element={<PeopleComponent people={people} />}
-          ></Route>
+          ></Route> */}
           <Route
             exact
             path="/planets"
