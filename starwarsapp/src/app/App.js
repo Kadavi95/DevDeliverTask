@@ -8,6 +8,8 @@ import { PeopleComponent } from "./components/people/PeopleComponent";
 import { PlanetsComponent } from "./components/planets/PlanetsComponent";
 import { FilmsComponent } from "./components/films/FilmsComponent";
 import { SpeciesComponent } from "./components/species/SpeciesComponent";
+import { VehiclesComponent } from "./components/vehicles/VehiclesComponent";
+import { StarshipsComponent } from "./components/starships/StarshipsComponent";
 function App() {
   const [people, setPeople] = useState([]);
   const [planets, setPlanets] = useState([]);
@@ -82,34 +84,34 @@ function App() {
         console.log("failed species");
       }
     }
-    // async function fetchVehicles() {
-    //   try {
-    //     const response = await fetch(
-    //       "https://swapi.dev/api/vehicles/?format=json"
-    //     );
-    //     const data = await response.json();
-    //     setVehicles(data);
-    //   } catch {
-    //     console.log("failed species");
-    //   }
-    // }
-    // async function fetchStarships() {
-    //   try {
-    //     const response = await fetch(
-    //       "https://swapi.dev/api/starships/?format=json"
-    //     );
-    //     const data = await response.json();
-    //     setStarships(data);
-    //   } catch {
-    //     console.log("failed species");
-    //   }
-    // }
+    async function fetchVehicles() {
+      try {
+        const response = await fetch(
+          "https://swapi.dev/api/vehicles/?format=json"
+        );
+        const data = await response.json();
+        setVehicles(data);
+      } catch {
+        console.log("failed species");
+      }
+    }
+    async function fetchStarships() {
+      try {
+        const response = await fetch(
+          "https://swapi.dev/api/starships/?format=json"
+        );
+        const data = await response.json();
+        setStarships(data);
+      } catch {
+        console.log("failed species");
+      }
+    }
     fetchPeople();
     fetchPlanets();
     fetchFilms();
     fetchSpecies();
-    // fetchVehicles();
-    // fetchStarships();
+    fetchVehicles();
+    fetchStarships();
   }, []);
 
   console.log(species);
@@ -137,6 +139,16 @@ function App() {
             exact
             path="/species"
             element={<SpeciesComponent species={species} />}
+          ></Route>
+          <Route
+            exact
+            path="/vehicles"
+            element={<VehiclesComponent vehicles={vehicles} />}
+          ></Route>
+          <Route
+            exact
+            path="/starships"
+            element={<StarshipsComponent starships={starships} />}
           ></Route>
         </Routes>
       </Router>
