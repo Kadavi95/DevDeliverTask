@@ -23,7 +23,7 @@ export const StarshipsComponent = () => {
 
   const fetchData = (page = 1, search = "") =>
     fetch(
-      `https://swapi.dev/api/StarshipsModal/?format=json&page=${page}&search=${search}`
+      `https://swapi.dev/api/starships/?format=json&page=${page}&search=${search}`
     )
       .then((res) => res.json())
       .then((data) => {

@@ -43,13 +43,13 @@ export const FilmsComponent = () => {
 
   const singleCard = data.map((item) => {
     return (
-      <CardStyled key={item.name}>
-        <CardInfo>{item.name}</CardInfo>
+      <CardStyled key={item.title}>
+        <CardInfo>{item.title}</CardInfo>
         <CardButton onClick={() => showModal(item.title)}>
           Dowiedz się więcej
         </CardButton>
         <FilmsModal
-          isModalOpen={item.name === openedModal ? true : false}
+          isModalOpen={item.title === openedModal ? true : false}
           showModal={showModal}
           item={item}
         ></FilmsModal>
