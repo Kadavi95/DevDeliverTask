@@ -6,10 +6,28 @@ import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import {FilmsModal} from "../commonElements/SectionsModals/FilmsModal"
+import { PeopleModal } from "../commonElements/SectionsModals/PeopleModal";
 import { ChangePageLi } from "../commonElements/ChangePageLi";
+// import { fetchPeopleAPI } from "../../API";
 
-export const FilmsComponent = () => {
+// const SingleCard = ({ item }) => {
+
+//   return (
+//     <CardStyled key={item.name}>
+//       <CardInfo>{item.name}</CardInfo>
+//       <CardButton onClick={() => showModal(item.name)}>
+//         Dowiedz się więcej
+//       </CardButton>
+//       {/* <PeopleModal
+//         isModalOpen={item.name === openedModal ? true : false}
+//         showModal={showModal}
+//         item={item}
+//       ></PeopleModal> */}
+//     </CardStyled>
+//   );
+// };
+
+export const PeopleComponent = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -23,7 +41,7 @@ export const FilmsComponent = () => {
 
   const fetchData = (page = 1, search = "") =>
     fetch(
-      `https://swapi.dev/api/films/?format=json&page=${page}&search=${search}`
+      `https://swapi.dev/api/people/?format=json&page=${page}&search=${search}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -45,14 +63,14 @@ export const FilmsComponent = () => {
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
-        <CardButton onClick={() => showModal(item.title)}>
+        <CardButton onClick={() => showModal(item.name)}>
           Dowiedz się więcej
         </CardButton>
-        <FilmsModal
+        <PeopleModal
           isModalOpen={item.name === openedModal ? true : false}
           showModal={showModal}
           item={item}
-        ></FilmsModal>
+        ></PeopleModal>
       </CardStyled>
     );
   });
@@ -63,7 +81,7 @@ export const FilmsComponent = () => {
         <InputBrowser
           type="text"
           value={search}
-          placeholder="Wpisz nazwę filmu"
+          placeholder="Wpisz nazwę bohatera"
           onChange={onInputChange}
         />
       </InputContainer>
@@ -86,3 +104,5 @@ export const FilmsComponent = () => {
     </MainContainer>
   );
 };
+
+

@@ -6,10 +6,10 @@ import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import {FilmsModal} from "../commonElements/SectionsModals/FilmsModal"
+import {PlanetsModal} from "../commonElements/SectionsModals/PlanetsModal"
 import { ChangePageLi } from "../commonElements/ChangePageLi";
 
-export const FilmsComponent = () => {
+export const PlanetsComponent = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -23,7 +23,7 @@ export const FilmsComponent = () => {
 
   const fetchData = (page = 1, search = "") =>
     fetch(
-      `https://swapi.dev/api/films/?format=json&page=${page}&search=${search}`
+      `https://swapi.dev/api/planets/?format=json&page=${page}&search=${search}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -45,14 +45,14 @@ export const FilmsComponent = () => {
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
-        <CardButton onClick={() => showModal(item.title)}>
+        <CardButton onClick={() => showModal(item.name)}>
           Dowiedz się więcej
         </CardButton>
-        <FilmsModal
+        <PlanetsModal
           isModalOpen={item.name === openedModal ? true : false}
           showModal={showModal}
           item={item}
-        ></FilmsModal>
+        ></PlanetsModal>
       </CardStyled>
     );
   });
@@ -63,7 +63,7 @@ export const FilmsComponent = () => {
         <InputBrowser
           type="text"
           value={search}
-          placeholder="Wpisz nazwę filmu"
+          placeholder="Wpisz nazwę planety"
           onChange={onInputChange}
         />
       </InputContainer>

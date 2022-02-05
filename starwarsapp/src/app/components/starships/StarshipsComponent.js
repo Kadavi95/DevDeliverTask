@@ -1,69 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MainContainer } from "../commonElements/MainContainer";
 import { InputContainer } from "../commonElements/InputContainer";
 import { InputBrowser } from "../commonElements/InputBrowser";
-import { SelectStyled } from "../commonElements/SelectStyled";
-import { OptionStyled } from "../commonElements/OptionStyled";
-import { StarshipsOptionsComponent } from "./StarshipsOptonsComponent";
 import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import { StarshipsModal } from "../commonElements/SectionsModals/StarshipsModal";
+import {StarshipsModal} from "../commonElements/SectionsModals/StarshipsModal"
+import { ChangePageLi } from "../commonElements/ChangePageLi";
 
-export function StarshipsComponent(props) {
-  const [starshipsSorted, setStarshipsSorted] = useState([]);
-  const [crew, setCrew] = useState("100");
-  const [name, setName] = useState("");
+export const StarshipsComponent = () => {
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+
   const [openedModal, setOpenedModal] = useState("");
-  const { starships } = props;
-  const StarshipsResult = starships.results;
 
-  console.log(StarshipsResult);
   const showModal = (valueOfOpenedModal) => {
     setOpenedModal(valueOfOpenedModal);
   };
 
-  useEffect(() => {
-    if (StarshipsResult === undefined) {
-      console.log("Undefined");
-    } else {
-      const InitialSorted = StarshipsResult.filter(
-        (item) => item.crew < crew
-      );
-      console.log(InitialSorted);
-      setStarshipsSorted(InitialSorted);
-    }
-  }, [StarshipsResult]);
+  const fetchData = (page = 1, search = "") =>
+    fetch(
+      `https://swapi.dev/api/StarshipsModal/?format=json&page=${page}&search=${search}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log({ data });
+        setCount(data.count);
+        setData(data.results);
+      });
 
   useEffect(() => {
-    if (StarshipsResult === undefined) {
-      console.log("Undefined");
-    } else {
-      const InitialSorted = StarshipsResult.filter(
-        (item) => item.crew < crew
-      );
-      console.log("Tablica obiiektów spełniających warunek", InitialSorted);
-      setStarshipsSorted(InitialSorted);
-    }
-  }, [crew]);
-  useEffect(() => {
-    if (StarshipsResult === undefined) {
-      console.log("Undefined"); 
-    } else {
-      const InitialSorted = StarshipsResult.filter(
-        (item) => item.crew < crew
-      );
-      const SecondarySorted = InitialSorted.filter((item) =>
-        item.name.toUpperCase().includes(name.toUpperCase())
-      );
-      console.log(InitialSorted);
-      console.log(SecondarySorted);
-      setStarshipsSorted(SecondarySorted);
-    }
-  }, [name, crew]);
+    fetchData(page, search);
+  }, [page, search]);
 
-  const singleCard = starshipsSorted.map((item) => {
+  const onInputChange = (event) => {
+    setPage(1);
+    setSearch(event.target.value);
+  };
+
+  const singleCard = data.map((item) => {
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
@@ -78,37 +56,33 @@ export function StarshipsComponent(props) {
       </CardStyled>
     );
   });
-  const SingleOption = StarshipsOptionsComponent.map(({ id, value, text }) => {
-    return (
-      <OptionStyled key={id} value={value}>
-        {text}
-      </OptionStyled>
-    );
-  });
-  return (
-    <>
-      <MainContainer>
-        <InputContainer>
-          <InputBrowser
-            type="text"
-            value={name}
-            placeholder="Wpisz nazwę gatunku"
-            onChange={(event) => setName(event.target.value)}
-          />
-        </InputContainer>
-        <InputContainer>
-          <SelectStyled
-            value={crew}
-            onChange={(event) => {
-              setCrew(event.target.value);
-            }}
-          >
-            {SingleOption}
-          </SelectStyled>
-        </InputContainer>
 
-        <GridContainer> {singleCard}</GridContainer>
-      </MainContainer>
-    </>
+  return (
+    <MainContainer>
+      <InputContainer>
+        <InputBrowser
+          type="text"
+          value={search}
+          placeholder="Wpisz nazwę statku"
+          onChange={onInputChange}
+        />
+      </InputContainer>
+
+      <GridContainer>
+        {/* {data.map((item) => (
+          <SingleCard item={item} showModal={showModal} />
+        ))} */}
+        {singleCard}
+      </GridContainer>
+      <InputContainer>
+        <ul style={{ display: "flex" }}>
+          {new Array(Math.ceil(count / 10)).fill(0).map((_, index) => (
+            <ChangePageLi onClick={() => setPage(index + 1)}>
+              {index + 1}
+            </ChangePageLi>
+          ))}
+        </ul>
+      </InputContainer>
+    </MainContainer>
   );
-}
+};

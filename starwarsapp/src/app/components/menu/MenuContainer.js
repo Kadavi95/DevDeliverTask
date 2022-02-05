@@ -8,6 +8,10 @@ export const MenuContainer = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: blue; */
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    background-color: #000;
+  }
 
 `;

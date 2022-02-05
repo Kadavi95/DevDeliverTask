@@ -1,69 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MainContainer } from "../commonElements/MainContainer";
 import { InputContainer } from "../commonElements/InputContainer";
 import { InputBrowser } from "../commonElements/InputBrowser";
-import { SelectStyled } from "../commonElements/SelectStyled";
-import { OptionStyled } from "../commonElements/OptionStyled";
-import { SpeciesOptionsData } from "./SpeciesOptionsData";
 import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import { SpeciesModal } from "../commonElements/SectionsModals/SpeciesModal";
+import {SpeciesModal} from "../commonElements/SectionsModals/SpeciesModal"
+import { ChangePageLi } from "../commonElements/ChangePageLi";
 
-export function SpeciesComponent(props) {
-  const [speciesSorted, setSpeciesSorted] = useState([]);
-  const [classification, setClassification] = useState("mammal");
-  const [name, setName] = useState("");
+export const SpeciesComponent = () => {
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(0);
+
   const [openedModal, setOpenedModal] = useState("");
-  const { species } = props;
-  const SpeciesResult = species.results;
 
-  console.log(SpeciesResult);
   const showModal = (valueOfOpenedModal) => {
     setOpenedModal(valueOfOpenedModal);
   };
 
-  useEffect(() => {
-    if (SpeciesResult === undefined) {
-      console.log("Undefined");
-    } else {
-      const InitialSorted = SpeciesResult.filter(
-        (item) => item.classification === classification
-      );
-      console.log(InitialSorted);
-      setSpeciesSorted(InitialSorted);
-    }
-  }, [SpeciesResult]);
+  const fetchData = (page = 1, search = "") =>
+    fetch(
+      `https://swapi.dev/api/species/?format=json&page=${page}&search=${search}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log({ data });
+        setCount(data.count);
+        setData(data.results);
+      });
 
   useEffect(() => {
-    if (SpeciesResult === undefined) {
-      console.log("Undefined");
-    } else {
-      const InitialSorted = SpeciesResult.filter(
-        (item) => item.classification === classification
-      );
-      console.log("Tablica obiiektów spełniających warunek", InitialSorted);
-      setSpeciesSorted(InitialSorted);
-    }
-  }, [classification]);
-  useEffect(() => {
-    if (SpeciesResult === undefined) {
-      console.log("Undefined");
-    } else {
-      const InitialSorted = SpeciesResult.filter(
-        (item) => item.classification === classification
-      );
-      const SecondarySorted = InitialSorted.filter((item) =>
-        item.name.toUpperCase().includes(name.toUpperCase())
-      );
-      console.log(InitialSorted);
-      console.log(SecondarySorted);
-      setSpeciesSorted(SecondarySorted);
-    }
-  }, [name, classification]);
+    fetchData(page, search);
+  }, [page, search]);
 
-  const singleCard = speciesSorted.map((item) => {
+  const onInputChange = (event) => {
+    setPage(1);
+    setSearch(event.target.value);
+  };
+
+  const singleCard = data.map((item) => {
     return (
       <CardStyled key={item.name}>
         <CardInfo>{item.name}</CardInfo>
@@ -78,37 +56,33 @@ export function SpeciesComponent(props) {
       </CardStyled>
     );
   });
-  const SingleOption = SpeciesOptionsData.map(({ id, value, text }) => {
-    return (
-      <OptionStyled key={id} value={value}>
-        {text}
-      </OptionStyled>
-    );
-  });
-  return (
-    <>
-      <MainContainer>
-        <InputContainer>
-          <InputBrowser
-            type="text"
-            value={name}
-            placeholder="Wpisz nazwę gatunku"
-            onChange={(event) => setName(event.target.value)}
-          />
-        </InputContainer>
-        <InputContainer>
-          <SelectStyled
-            value={classification}
-            onChange={(event) => {
-              setClassification(event.target.value);
-            }}
-          >
-            {SingleOption}
-          </SelectStyled>
-        </InputContainer>
 
-        <GridContainer> {singleCard}</GridContainer>
-      </MainContainer>
-    </>
+  return (
+    <MainContainer>
+      <InputContainer>
+        <InputBrowser
+          type="text"
+          value={search}
+          placeholder="Wpisz nazwę gatunku"
+          onChange={onInputChange}
+        />
+      </InputContainer>
+
+      <GridContainer>
+        {/* {data.map((item) => (
+          <SingleCard item={item} showModal={showModal} />
+        ))} */}
+        {singleCard}
+      </GridContainer>
+      <InputContainer>
+        <ul style={{ display: "flex" }}>
+          {new Array(Math.ceil(count / 10)).fill(0).map((_, index) => (
+            <ChangePageLi onClick={() => setPage(index + 1)}>
+              {index + 1}
+            </ChangePageLi>
+          ))}
+        </ul>
+      </InputContainer>
+    </MainContainer>
   );
-}
+};
