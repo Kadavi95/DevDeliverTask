@@ -6,14 +6,16 @@ import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import {SpeciesModal} from "../commonElements/SectionsModals/SpeciesModal"
+import { SpeciesModal } from "../commonElements/SectionsModals/SpeciesModal";
 import { ChangePageLi } from "../commonElements/ChangePageLi";
+import { Loader } from "../commonElements/Loader";
 
 export const SpeciesComponent = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [isLoaderOpen, setIsLoaderOpen] = useState(true);
 
   const [openedModal, setOpenedModal] = useState("");
 
@@ -30,6 +32,7 @@ export const SpeciesComponent = () => {
         console.log({ data });
         setCount(data.count);
         setData(data.results);
+        setIsLoaderOpen(false);
       });
 
   useEffect(() => {
@@ -59,6 +62,7 @@ export const SpeciesComponent = () => {
 
   return (
     <MainContainer>
+      <Loader isLoaderOpen={isLoaderOpen}></Loader>
       <InputContainer>
         <InputBrowser
           type="text"

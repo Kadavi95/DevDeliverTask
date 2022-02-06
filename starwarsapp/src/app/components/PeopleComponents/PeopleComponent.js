@@ -8,6 +8,7 @@ import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
 import { PeopleModal } from "../commonElements/SectionsModals/PeopleModal";
 import { ChangePageLi } from "../commonElements/ChangePageLi";
+import { Loader } from "../commonElements/Loader";
 // import { fetchPeopleAPI } from "../../API";
 
 // const SingleCard = ({ item }) => {
@@ -32,8 +33,8 @@ export const PeopleComponent = () => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
-
   const [openedModal, setOpenedModal] = useState("");
+  const [isLoaderOpen, setIsLoaderOpen] = useState(true);
 
   const showModal = (valueOfOpenedModal) => {
     setOpenedModal(valueOfOpenedModal);
@@ -48,6 +49,7 @@ export const PeopleComponent = () => {
         console.log({ data });
         setCount(data.count);
         setData(data.results);
+        setIsLoaderOpen(false);
       });
 
   useEffect(() => {
@@ -77,6 +79,7 @@ export const PeopleComponent = () => {
 
   return (
     <MainContainer>
+      <Loader isLoaderOpen={isLoaderOpen}></Loader>
       <InputContainer>
         <InputBrowser
           type="text"
@@ -95,7 +98,7 @@ export const PeopleComponent = () => {
       <InputContainer>
         <ul style={{ display: "flex" }}>
           {new Array(Math.ceil(count / 10)).fill(0).map((_, index) => (
-            <ChangePageLi onClick={() => setPage(index + 1)}>
+            <ChangePageLi key={index} onClick={() => setPage(index + 1)}>
               {index + 1}
             </ChangePageLi>
           ))}
