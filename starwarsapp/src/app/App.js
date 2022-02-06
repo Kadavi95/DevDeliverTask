@@ -23,7 +23,6 @@ function App() {
         <MenuComponent />
         <Routes>
           <Route exact path="/" element={<PeopleComponent />}></Route>
-
           <Route exact path="/planets" element={<PlanetsComponent />}></Route>
           <Route exact path="/films" element={<FilmsComponent />}></Route>
           <Route exact path="/species" element={<SpeciesComponent />}></Route>
