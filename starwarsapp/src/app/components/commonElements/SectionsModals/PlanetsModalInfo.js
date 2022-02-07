@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { LiElement } from "./LiElement";
 
 const UlList = styled.ul``;
-const LiElement = styled.li``;
 
 export function PlanetsModalInfo({item}) {
   return (

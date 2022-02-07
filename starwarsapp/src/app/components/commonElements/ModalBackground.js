@@ -10,6 +10,7 @@ export const ModalBackground = styled.section`
   background-color: rgba(0, 0, 0, 1);
   z-index: 20;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

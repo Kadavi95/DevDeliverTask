@@ -9,24 +9,6 @@ import { GridContainer } from "../commonElements/GridContainer";
 import { PeopleModal } from "../commonElements/SectionsModals/PeopleModal";
 import { ChangePageLi } from "../commonElements/ChangePageLi";
 import { Loader } from "../commonElements/Loader";
-// import { fetchPeopleAPI } from "../../API";
-
-// const SingleCard = ({ item }) => {
-
-//   return (
-//     <CardStyled key={item.name}>
-//       <CardInfo>{item.name}</CardInfo>
-//       <CardButton onClick={() => showModal(item.name)}>
-//         Dowiedz się więcej
-//       </CardButton>
-//       {/* <PeopleModal
-//         isModalOpen={item.name === openedModal ? true : false}
-//         showModal={showModal}
-//         item={item}
-//       ></PeopleModal> */}
-//     </CardStyled>
-//   );
-// };
 
 export const PeopleComponent = () => {
   const [data, setData] = useState([]);

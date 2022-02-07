@@ -73,15 +73,12 @@ export const SpeciesComponent = () => {
       </InputContainer>
 
       <GridContainer>
-        {/* {data.map((item) => (
-          <SingleCard item={item} showModal={showModal} />
-        ))} */}
         {singleCard}
       </GridContainer>
       <InputContainer>
         <ul style={{ display: "flex" }}>
           {new Array(Math.ceil(count / 10)).fill(0).map((_, index) => (
-            <ChangePageLi onClick={() => setPage(index + 1)}>
+            <ChangePageLi key={index} onClick={() => setPage(index + 1)}>
               {index + 1}
             </ChangePageLi>
           ))}

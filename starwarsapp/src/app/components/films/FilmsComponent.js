@@ -6,7 +6,7 @@ import { CardStyled } from "../commonElements/CardStyled";
 import { CardInfo } from "../commonElements/CardInfo";
 import { CardButton } from "../commonElements/CardButton";
 import { GridContainer } from "../commonElements/GridContainer";
-import {FilmsModal} from "../commonElements/SectionsModals/FilmsModal"
+import { FilmsModal } from "../commonElements/SectionsModals/FilmsModal";
 import { ChangePageLi } from "../commonElements/ChangePageLi";
 import { Loader } from "../commonElements/Loader";
 
@@ -73,15 +73,12 @@ export const FilmsComponent = () => {
       </InputContainer>
 
       <GridContainer>
-        {/* {data.map((item) => (
-          <SingleCard item={item} showModal={showModal} />
-        ))} */}
         {singleCard}
       </GridContainer>
       <InputContainer>
         <ul style={{ display: "flex" }}>
           {new Array(Math.ceil(count / 10)).fill(0).map((_, index) => (
-            <ChangePageLi onClick={() => setPage(index + 1)}>
+            <ChangePageLi key={index} onClick={() => setPage(index + 1)}>
               {index + 1}
             </ChangePageLi>
           ))}
