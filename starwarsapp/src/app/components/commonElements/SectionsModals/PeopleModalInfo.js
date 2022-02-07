@@ -1,18 +1,19 @@
 import React from "react";
 import { LiElement } from "./LiElement";
 import { UlList } from "./UlList";
+import { PElement } from "./PElement";
 
 
 export function PeopleModalInfo({item}) {
   return (
     <>
       <UlList>
-        <LiElement>Imię: <p>{item.name}</p></LiElement>
-        <LiElement>Wzrost: <p>{item.height}</p></LiElement>
-        <LiElement>Kolor włosów: <p>{item.hair_color}</p></LiElement>
-        <LiElement>Rok urodzenia: <p>{item.birth_year}</p></LiElement>
-        <LiElement>Kolor ciała: <p>{item.skin_color}</p></LiElement>
-        <LiElement>Filmy: <p>{item.name}</p></LiElement>
+        <LiElement>Imię: <PElement>{item.name}</PElement></LiElement>
+        <LiElement>Wzrost: <PElement>{item.height}</PElement></LiElement>
+        <LiElement>Kolor włosów: <PElement>{item.hair_color}</PElement></LiElement>
+        <LiElement>Rok urodzenia: <PElement>{item.birth_year}</PElement></LiElement>
+        <LiElement>Kolor ciała: <PElement>{item.skin_color}</PElement></LiElement>
+        <LiElement>Filmy: <PElement>{item.name}</PElement></LiElement>
 
       </UlList>
   

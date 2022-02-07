@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../styles/reset.css";
 import "../styles/globalStyles.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import { LoginComponent } from "./components/LogAccess/LoginComponent";
 
 import { MenuComponent } from "./components/menu/MenuComponent";
 import { PeopleComponent } from "./components/PeopleComponents/PeopleComponent";
@@ -15,7 +13,6 @@ import { StarshipsComponent } from "./components/starships/StarshipsComponent";
 import { EmptyPage } from "./components/EmptyPage/EmptyPage";
 
 function App() {
-  const [checkedData, setCheckedData] = useState(false);
 
   return (
     <>

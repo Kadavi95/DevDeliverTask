@@ -1,16 +1,17 @@
 import React from "react";
 import { LiElement } from "./LiElement";
 import { UlList } from "./UlList";
+import { PElement } from "./PElement";
 
 export function VehicleModalInfo({item}) {
   return (
     <>
       <UlList>
-        <LiElement>Nazwa: <p>{item.name}</p></LiElement>
-        <LiElement>Prędkość: <p>{item.max_atmosphering_speed}</p></LiElement>
-        <LiElement>Załoga: <p>{item.crew}</p></LiElement>
-        <LiElement>Długość: <p>{item.length}</p></LiElement>
-        <LiElement>Producent: <p>{item.manufacturer}</p></LiElement>
+        <LiElement>Nazwa: <PElement>{item.name}</PElement></LiElement>
+        <LiElement>Prędkość: <PElement>{item.max_atmosphering_speed}</PElement></LiElement>
+        <LiElement>Załoga: <PElement>{item.crew}</PElement></LiElement>
+        <LiElement>Długość: <PElement>{item.length}</PElement></LiElement>
+        <LiElement>Producent: <PElement>{item.manufacturer}</PElement></LiElement>
 
 
       </UlList>
