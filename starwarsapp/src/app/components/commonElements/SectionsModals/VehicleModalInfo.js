@@ -1,20 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { LiElement } from "./LiElement";
-
-const UlList = styled.ul``;
-
+import { UlList } from "./UlList";
 
 export function VehicleModalInfo({item}) {
   return (
     <>
       <UlList>
-        <LiElement>Nazwa Planety: {item.name}</LiElement>
-        <LiElement>Położenie {item.diameter}</LiElement>
-        <LiElement>Grawitacja  {item.gravity}</LiElement>
-        <LiElement>Czas obrotu: {item.rotation_period}</LiElement>
-        <LiElement>Czas trwania roku: {item.orbital_period}</LiElement>
-        <LiElement>Rodzaj terenu: {item.terrain}</LiElement>
+        <LiElement>Nazwa: <p>{item.name}</p></LiElement>
+        <LiElement>Prędkość: <p>{item.max_atmosphering_speed}</p></LiElement>
+        <LiElement>Załoga: <p>{item.crew}</p></LiElement>
+        <LiElement>Długość: <p>{item.length}</p></LiElement>
+        <LiElement>Producent: <p>{item.manufacturer}</p></LiElement>
+
 
       </UlList>
     </>

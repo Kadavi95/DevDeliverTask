@@ -1,19 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import { LiElement } from "./LiElement";
+import { UlList } from "./UlList";
 
-const UlList = styled.ul``;
+
 
 export function PlanetsModalInfo({item}) {
   return (
     <>
       <UlList>
-        <LiElement>Nazwa Planety: {item.name}</LiElement>
-        <LiElement>Położenie {item.diameter}</LiElement>
-        <LiElement>Grawitacja  {item.gravity}</LiElement>
-        <LiElement>Czas obrotu: {item.rotation_period}</LiElement>
-        <LiElement>Czas trwania roku: {item.orbital_period}</LiElement>
-        <LiElement>Rodzaj terenu: {item.terrain}</LiElement>
+        <LiElement>Nazwa Planety: <p>{item.name}</p></LiElement>
+        <LiElement>Położenie <p>{item.diameter}</p></LiElement>
+        <LiElement>Grawitacja  <p>{item.gravity}</p></LiElement>
+        <LiElement>Czas obrotu: <p>{item.rotation_period}</p></LiElement>
+        <LiElement>Czas trwania roku: <p>{item.orbital_period}</p></LiElement>
+        <LiElement>Rodzaj terenu: <p>{item.terrain}</p></LiElement>
 
       </UlList>
     </>

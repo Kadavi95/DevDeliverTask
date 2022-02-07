@@ -12,6 +12,7 @@ import { FilmsComponent } from "./components/films/FilmsComponent";
 import { SpeciesComponent } from "./components/species/SpeciesComponent";
 import { VehiclesComponent } from "./components/vehicles/VehiclesComponent";
 import { StarshipsComponent } from "./components/starships/StarshipsComponent";
+import { EmptyPage } from "./components/EmptyPage/EmptyPage";
 
 function App() {
   const [checkedData, setCheckedData] = useState(false);
@@ -32,6 +33,7 @@ function App() {
             path="/starships"
             element={<StarshipsComponent />}
           ></Route>
+          <Route path="*" element={<EmptyPage/>}/>
         </Routes>
       </Router>
     </>

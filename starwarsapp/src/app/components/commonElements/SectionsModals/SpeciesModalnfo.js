@@ -1,20 +1,18 @@
 import React from "react";
-import styled from "styled-components";
 import { LiElement } from "./LiElement";
 
-const UlList = styled.ul``;
+import { UlList } from "./UlList";
 
 
 export function SpeciesModalInfo({item}) {
   return (
     <>
       <UlList>
-        <LiElement>Nazwa Planety: {item.name}</LiElement>
-        <LiElement>Położenie {item.diameter}</LiElement>
-        <LiElement>Grawitacja  {item.gravity}</LiElement>
-        <LiElement>Czas obrotu: {item.rotation_period}</LiElement>
-        <LiElement>Czas trwania roku: {item.orbital_period}</LiElement>
-        <LiElement>Rodzaj terenu: {item.terrain}</LiElement>
+        <LiElement>Nazwa:  <p>{item.name}</p></LiElement>
+        <LiElement>Klasyfikacja: <p>{item.classification}</p></LiElement>
+        <LiElement>Tytuł: <p>{item.designation}</p></LiElement>
+        <LiElement>Wzrost <p>{item.average_height}</p></LiElement>
+        <LiElement>Język: <p>{item.language}</p></LiElement>
 
       </UlList>
     </>

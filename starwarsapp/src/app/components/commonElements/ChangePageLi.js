@@ -9,4 +9,9 @@ export const ChangePageLi = styled.li`
   &:hover{
        color: #ee0f03;       
   }
+  @media screen and (max-width: 768px) {
+    &:hover{
+      color: #b2b807;
+    }
+  }
 `;

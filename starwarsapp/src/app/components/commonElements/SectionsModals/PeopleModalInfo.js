@@ -1,29 +1,18 @@
 import React from "react";
-import styled from "styled-components";
 import { LiElement } from "./LiElement";
-
-const UlList = styled.ul``;
+import { UlList } from "./UlList";
 
 
 export function PeopleModalInfo({item}) {
-// console.log(item.films);
-// const ArrayOfFilms = item.films;
-// const ArrayOfObjectFilms = [];
-// ArrayOfFilms.forEach(element => {
-//   const response = await fetch(element);
-//   const data = response.json();
-//   ArrayOfObjectFilms.push(data);
-// });
-// console.log(ArrayOfObjectFilms);
   return (
     <>
       <UlList>
-        <LiElement>Imię: {item.name}</LiElement>
-        <LiElement>Wzrost: {item.height}</LiElement>
-        <LiElement>Kolor włosów: {item.hair_color}</LiElement>
-        <LiElement>Rok urodzenia: {item.birth_year}</LiElement>
-        <LiElement>Kolor ciała: {item.skin_color}</LiElement>
-        <LiElement>Filmy: {item.name}</LiElement>
+        <LiElement>Imię: <p>{item.name}</p></LiElement>
+        <LiElement>Wzrost: <p>{item.height}</p></LiElement>
+        <LiElement>Kolor włosów: <p>{item.hair_color}</p></LiElement>
+        <LiElement>Rok urodzenia: <p>{item.birth_year}</p></LiElement>
+        <LiElement>Kolor ciała: <p>{item.skin_color}</p></LiElement>
+        <LiElement>Filmy: <p>{item.name}</p></LiElement>
 
       </UlList>
   

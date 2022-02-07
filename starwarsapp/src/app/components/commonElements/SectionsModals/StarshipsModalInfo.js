@@ -1,21 +1,16 @@
 import React from "react";
-import styled from "styled-components";
 import { LiElement } from "./LiElement";
+import { UlList } from "./UlList";
 
-const UlList = styled.ul``;
-
-
-export function StarshipsModalInfo({item}) {
+export function StarshipsModalInfo({ item }) {
   return (
     <>
       <UlList>
-        <LiElement>Nazwa Planety: {item.name}</LiElement>
-        <LiElement>Położenie {item.diameter}</LiElement>
-        <LiElement>Grawitacja  {item.gravity}</LiElement>
-        <LiElement>Czas obrotu: {item.rotation_period}</LiElement>
-        <LiElement>Czas trwania roku: {item.orbital_period}</LiElement>
-        <LiElement>Rodzaj terenu: {item.terrain}</LiElement>
-
+        <LiElement>Nazwa: <p>{item.name}</p></LiElement>
+        <LiElement>Załoga: <p>{item.crew}</p></LiElement>
+        <LiElement>Długość: <p>{item.length}</p></LiElement>
+        <LiElement>Prędkość nadświetlna: <p>{item.hyperdrive_rating}</p></LiElement>
+        <LiElement>Producent: <p>{item.manufacturer}</p></LiElement>
       </UlList>
     </>
   );
